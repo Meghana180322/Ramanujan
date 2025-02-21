@@ -1,0 +1,51 @@
+/dts-v1/;
+/ {
+    compatible = "Mirafra,Ramanujan-clk";
+
+    clocks {
+        compatible = "simple-bus";
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        xo_clk: xo_clk {
+            compatible = "fixed-clock";
+            clock-frequency = <100000000>; /* 100 MHz */
+        };
+
+        cpu_clk: cpu_clk {
+            compatible = "fixed-factor-clock";
+            clocks = <&xo_clk>;
+            clock-mult = <12>; /* Multiplier for 1200 MHz */
+            clock-div = <1>;
+        };
+
+        uart_clk: uart_clk {
+            compatible = "fixed-factor-clock";
+            clocks = <&xo_clk>;
+            clock-mult = <1>;
+            clock-div = <868>; /* 115200 Hz */
+        };
+
+        i2c_clk: i2c_clk {
+            compatible = "fixed-factor-clock";
+            clocks = <&xo_clk>;
+            clock-mult = <1>;
+            clock-div = <1000>; /* 100 kHz */
+        };
+
+        gpio_clk: gpio_clk {
+            compatible = "fixed-factor-clock";
+            clocks = <&xo_clk>;
+            clock-mult = <1>;
+            clock-div = <1>; /* Same as XO */
+        };
+
+        spi_clk: spi_clk {
+            compatible = "fixed-factor-clock";
+            clocks = <&xo_clk>;
+            clock-mult = <1>;
+            clock-div = <10>; /* 10 MHz */
+        };
+    };
+};
+
