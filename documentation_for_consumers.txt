@@ -1,0 +1,21 @@
+/*
+ * Clock Usage Guidelines for Device Driver Developers
+ *
+ * As using a clock registered via clk_hw_register_fixed_rate() or
+ * clk_hw_register_fixed_factor(), ensure that your driver only
+ * calls supported clk APIs.
+ *
+ * Supported Operations:
+ * - clk_get_rate(clk)       // Get clock frequency.
+ * - clk_enable(clk)         // No-op for fixed-rate, enables fixed-factor.
+ * - clk_disable(clk)        // No-op for fixed-rate, disables fixed-factor.
+ * - clk_is_enabled(clk)     // Always true for fixed-rate, depends on parent for fixed-factor.
+ * - clk_prepare(clk)        // No-op (safe to call).
+ * - clk_unprepare(clk)      // No-op (safe to call).
+ *
+ * Unsupported Operations (DO NOT USE):
+ * - clk_set_rate(clk, new_rate)  // Returns error (-EINVAL).
+ * - clk_set_parent(clk, new_parent)  // Returns error (-EINVAL).
+ */
+
+
